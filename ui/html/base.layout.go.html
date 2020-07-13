@@ -5,6 +5,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{template "title" .}} - Snippetbox</title>
+        <!-- Link to the CSS stylesheet and favicon -->
+        <link rel='stylesheet' href='/static/css/main.css'>
+        <link rel='shortcut icon' href='/static/img/favicon.ico' type='image/x-icon'>
+        <!-- Also link to some fonts hosted by Google -->
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
     </head>
     <body>
         <header>
@@ -17,9 +22,7 @@
             {{template "main" .}}
         </main>
         <!-- Invoke the footer template if it exists, or use default footer -->
-        {{block "footer" .}}
-        <footer>Powered by <a href='https://golang.org/'>Go</a></footer>
-        {{end}}
+        {{template "footer" .}}
     </body>
 </html>
 {{end}}
