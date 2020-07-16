@@ -21,27 +21,24 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 		return
 	}
+	data := &templateData{Snippets: s}
 
-	for _, snippet := range s {
-		fmt.Fprintf(w, "%v\n", snippet)
+	files := []string{
+		"./ui/html/home.page.go.html",
+		"./ui/html/base.layout.go.html",
+		"./ui/html/footer.partial.go.html",
 	}
 
-	//	files := []string{
-	//		"./ui/html/home.page.go.html",
-	//		"./ui/html/base.layout.go.html",
-	//		"./ui/html/footer.partial.go.html",
-	//	}
+	ts, err := template.ParseFiles(files...)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
 
-	//	ts, err := template.ParseFiles(files...)
-	//	if err != nil {
-	//		app.serverError(w, err)
-	//		return
-	//	}
-
-	//	err = ts.Execute(w, nil)
-	//	if err != nil {
-	//		app.serverError(w, err)
-	//	}
+	err = ts.Execute(w, data)
+	if err != nil {
+		app.serverError(w, err)
+	}
 }
 
 func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
@@ -61,8 +58,8 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Initialize a slice containing the paths to the show.page.tmpl file,
-	// plus the base layout and footer partial that we made earlier.
+	data := &templateData{Snippet: s}
+
 	files := []string{
 		"./ui/html/show.page.go.html",
 		"./ui/html/base.layout.go.html",
@@ -78,7 +75,7 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 
 	// And then execute them. Notice how we are passing in the snippet
 	// data (a models.Snippet struct) as the final parameter.
-	err = ts.Execute(w, s)
+	err = ts.Execute(w, data)
 	if err != nil {
 		app.serverError(w, err)
 	}
