@@ -8,12 +8,12 @@ func (app *application) routes() *http.ServeMux {
 	mux.HandleFunc("/snippet", app.showSnippet)
 	mux.HandleFunc("/snippet/create", app.createSnippet)
 
-	//	fileServer := http.FileServer(http.Dir("./ui/static/"))
-	//	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
-	// Avoiding directory listing
-	fileServer := http.FileServer(neuteredFileSystem{http.Dir("./static")})
-	mux.Handle("/static", http.NotFoundHandler())
+	fileServer := http.FileServer(http.Dir("./ui/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
+	//	// Avoiding directory listing
+	//	fileServer := http.FileServer(neuteredFileSystem{http.Dir("./static")})
+	//	mux.Handle("/static", http.NotFoundHandler())
+	//	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 
 	return mux
 }
