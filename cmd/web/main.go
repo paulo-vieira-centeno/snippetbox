@@ -52,11 +52,6 @@ func main() {
 		templateCache: templateCache,
 	}
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", app.home)
-	mux.HandleFunc("/snippet", app.showSnippet)
-	mux.HandleFunc("/snippet/create", app.createSnippet)
-
 	srv := &http.Server{
 		Addr:     *addr,
 		ErrorLog: errorLog,
