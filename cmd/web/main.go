@@ -3,11 +3,11 @@ package main
 import (
 	"database/sql"
 	"flag"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
-	"text/template"
 
 	_ "github.com/go-sql-driver/mysql"
 	"paulocenteno.net/snippetbox/pkg/models/mysql"
