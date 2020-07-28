@@ -148,11 +148,8 @@ func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Add the ID of the current user to the session, so that they are now 'logged
-	// in'.
 	app.session.Put(r, "authenticatedUserID", id)
 
-	// Redirect the user to the create snippet page.
 	http.Redirect(w, r, "/snippet/create", http.StatusSeeOther)
 }
 
@@ -161,4 +158,8 @@ func (app *application) logoutUser(w http.ResponseWriter, r *http.Request) {
 
 	app.session.Put(r, "flash", "You've been logged out successfully!")
 	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func ping(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("OK"))
 }
